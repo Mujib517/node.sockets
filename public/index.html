@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div>
+        <div id="msgs"></div>
+
+    </div>
+    <input type="text" placeholder="Type your message" id="txtMsg" />
+    <button onclick="send()">Send</button>
+    </div>
+    </div>
+
+
+    <script>
+        var ws = new WebSocket("ws://localhost:3000");
+
+        function send() {
+            var txtMsg = document.getElementById("txtMsg");
+            ws.send(txtMsg.value);
+            txtMsg.value = "";
+        }
+
+        ws.addEventListener("message", function (msg) {
+
+            var msgs = document.getElementById('msgs');
+
+            var div = document.createElement('div');
+            div.innerText = msg.data;
+
+            msgs.appendChild(div);
+        });
+    </script>
+
+
+</body>
+
+</html>
